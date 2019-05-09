@@ -1,12 +1,14 @@
 <template>
     <div id="login">
-        <h1>Login</h1>
+        <h1>Admin</h1>
         <input type="text" name="username" v-model="input.username" placeholder="Username" />
         <input type="password" name="password" v-model="input.password" placeholder="Password" />
-        <button type="button" v-on:click="login()">Login</button>
-        <button  v-on:click="post">TrimiteJSON</button>
-        
-      
+        <br>
+        <div id="button">
+        <button  v-on:click="post">Create account</button> 
+        <button  v-on:click="post" >Delete account</button>
+        </div>
+       
     </div>
 </template>
 
@@ -22,18 +24,6 @@
             }
         },
         methods: {
-            login() {
-                if(this.input.username != "" && this.input.password != "") {
-                    if(this.input.username == this.$parent.mockAccount.username && this.input.password == this.$parent.mockAccount.password) {
-                        this.$emit("authenticated", true);
-                        this.$router.replace({ name: "secure" });
-                    } else {
-                        console.log("The username and / or password is incorrect");
-                    }
-                } else {
-                    console.log("A username and password must be present");
-                }
-            },
             post: function(){
             this.$http.post('https://jsonplaceholder.typicode.com/posts',{
                 title:this.input.username,
@@ -42,9 +32,7 @@
             }).then(function(data){
                 console.log(data);
             })
-
         }
-
         }
         
     }
@@ -59,4 +47,16 @@
         margin-top: 200px;
         padding: 20px;
     }
+    #button {
+        display:inline-block;
+        font-size: 16px;
+        justify-content: space-between;
+        margin-right:150px;
+         
+         border:none;
+         color:darkslategrey;
+        padding: 15px 32px;
+        text-align: center;
+    }
+
 </style>
